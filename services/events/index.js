@@ -1,33 +1,46 @@
 const fs = require("fs");
 
-// access global mock db file
 const events = require(global.mock_db);
 
-// write service method implementations
-const event_service = {
+const eventService = {
   getAll() {
     return events;
   },
-
   getById(id) {
     return events.find((e) => e.id == id);
   },
 
   create(req, res) {
-    let new_id = genRandId(4);
+    let newId = genRandId(4);
 
     const event = req.body;
 
-    const new_event = {
-      id: new_id,
+    const newEvent = {
+      id: newId,
       event: event,
     };
 
-    events.push(new_event);
+    events.push(newEvent);
 
     writeToFile(events);
 
-    return new_event;
+    return newEvent;
+  },
+  update(id, updateData) {
+    const eventIndex = events.findIndex((e) => e.id == id);
+
+    if (eventIndex === -1) {
+      return null;
+    }
+
+    events[eventIndex].event = {
+      ...events[eventIndex].event,
+      ...updateData,
+    };
+
+    writeToFile(events);
+
+    return events[eventIndex];
   },
 
   delete(id) {
@@ -37,7 +50,6 @@ const event_service = {
   },
 };
 
-// create function for overwriting the db file updated db content
 let writeToFile = async (users) => {
   await fs.writeFileSync(
     global.mock_db,
@@ -46,7 +58,6 @@ let writeToFile = async (users) => {
   );
 };
 
-// generate random id inspired by uuid
 let genRandId = (count) => {
   let result = "";
   const characters =
@@ -58,4 +69,4 @@ let genRandId = (count) => {
   return result;
 };
 
-module.exports = event_service;
+module.exports = eventService;
