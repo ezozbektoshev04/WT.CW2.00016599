@@ -8,6 +8,11 @@ const event_service = {
   getAll() {
     return events;
   },
+
+  getById(id) {
+    return events.find((e) => e.id == id);
+  },
+
   create(req, res) {
     let new_id = genRandId(4);
 
@@ -23,6 +28,12 @@ const event_service = {
     writeToFile(events);
 
     return new_event;
+  },
+
+  delete(id) {
+    const index = events.findIndex((e) => e.id == id);
+    events.splice(index, 1);
+    writeToFile(events);
   },
 };
 
