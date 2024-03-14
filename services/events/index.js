@@ -1,51 +1,37 @@
 const fs = require("fs");
-
 const events = require(global.mock_db);
-
 const eventService = {
-  getAll() {
+  gettingAllEvents() {
     return events;
   },
-  getById(id) {
+  gettingEventById(id) {
     return events.find((e) => e.id == id);
   },
 
-  create(req, res) {
-    let newId = genRandId(4);
-
-    const event = req.body;
-
+  creatingNewEvent(req, res) {
     const newEvent = {
-      id: newId,
-      event: event,
+      id: genRandomId(6),
+      event: req.body,
     };
-
     events.push(newEvent);
-
     writeToFile(events);
-
     return newEvent;
   },
-  update(id, updateData) {
-    const eventIndex = events.findIndex((e) => e.id == id);
+  updatingEvent(id, updateData) {
+    const findEventIndex = events.findIndex((e) => e.id == id);
+    if (findEventIndex === -1) return null;
 
-    if (eventIndex === -1) {
-      return null;
-    }
-
-    events[eventIndex].event = {
-      ...events[eventIndex].event,
+    events[findEventIndex].event = {
+      ...events[findEventIndex].event,
       ...updateData,
     };
-
     writeToFile(events);
-
-    return events[eventIndex];
+    return events[findEventIndex];
   },
 
-  delete(id) {
-    const index = events.findIndex((e) => e.id == id);
-    events.splice(index, 1);
+  deletingEvent(id) {
+    const eventIndex = events.findIndex((e) => e.id == id);
+    events.splice(eventIndex, 1);
     writeToFile(events);
   },
 };
@@ -58,15 +44,15 @@ let writeToFile = async (users) => {
   );
 };
 
-let genRandId = (count) => {
-  let result = "";
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  const charactersLength = characters.length;
+let genRandomId = (count) => {
+  let randomId = "";
+  const idCharacters = "ABCDEFGabcdefg0123456789";
+  const idCharactersLength = idCharacters.length;
   for (let i = 0; i < count; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    randomId += idCharacters.charAt(
+      Math.floor(Math.random() * idCharactersLength)
+    );
   }
-  return result;
+  return randomId;
 };
-
 module.exports = eventService;

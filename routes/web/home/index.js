@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const homeController = require("../../../controllers/web/home");
-
 router.get("/", homeController.index);
 router.get("/add", homeController.add);
 router.get("/update", homeController.update);

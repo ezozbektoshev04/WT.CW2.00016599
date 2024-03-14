@@ -1,31 +1,33 @@
 const eventService = require("../../../services/events");
 
-const event_controller = {
-  getAll(req, res) {
-    res.json(eventService.getAll());
+const eventController = {
+  getAllEvents(req, res) {
+    const events = eventService.gettingAllEvents();
+    res.json(events);
   },
-  create(req, res) {
-    res.status(201).json(eventService.create(req, res));
+  creatingNewEvent(req, res) {
+    const newEvent = eventService.creatingNewEvent(req, res);
+    res.status(201).json(newEvent);
   },
-  update(req, res) {
-    const event = eventService.update(req.params.id, req.body);
-
-    if (event) {
-      res.json(event);
+  updatingEvent(req, res) {
+    const eventId = req.params.id;
+    const updateEvent = eventService.updatingEvent(eventId, req.body);
+    if (updateEvent) {
+      res.json(updateEvent);
     } else {
-      res.status(404).send("Event not found");
+      res.status(404).send("Event could not be not found");
     }
   },
-
-  delete(req, res) {
-    const event = eventService.getById(req.params.id);
-    if (event) {
-      eventService.delete(req.params.id);
-      res.status(204).send("Event deleted successfully");
+  deletingEvent(req, res) {
+    const eventId = req.params.id;
+    const deleteEvent = eventService.gettingEventById(eventId);
+    if (deleteEvent) {
+      eventService.deletingEvent(eventId);
+      res.status(204).send("Deleting Successfully");
     } else {
-      res.status(404).send("Event not found");
+      res.status(404).send("Event could not be found");
     }
   },
 };
 
-module.exports = event_controller;
+module.exports = eventController;

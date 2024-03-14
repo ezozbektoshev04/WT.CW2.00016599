@@ -1,114 +1,114 @@
 include ../head.pug
 body
-  .container.mt-5
+  .container
     h1 #{mode}
-    .mb-4
-      label(for="eventName" class="form-label") Event Name
-      input(type="text"  class="form-control border-info" id="eventName" name="eventName" required)
-      p(id="eventNameValidation" class="text-danger") 
-    .mb-4
-      label(for="eventDateTime" class="form-label") Event Date/Time
-      .input-group.date(id="datetime" data-target-input="nearest")
-        input(type="text" class="form-control border-info datetimepicker-input" data-target="#datetime" id="eventDateTime" name="eventDateTime" required)
-        .input-group-append(data-target="#datetimepicker1" data-toggle="datetimepicker")
-          .input-group-text
-            i.fas.fa-calendar-alt
-      p(id="eventDateTimeValidation" class="text-danger")
+    .field
+      label(for="eventName" class="input-label-name") Event Name
+      input(type="text"  class="input-style" id="eventName" name="eventName" required)
+      p(id="eventNameValidation" class="validaet-imput") 
+    .field
+      label(for="eventDateTime" class="input-label-name") Event Date/Time
+      input(type="datetime-local" id="eventDateTime" name="eventDateTime" required)
+      p(id="eventDateTimeValidation" class="validaet-imput")
 
-    .mb-4
-      label(for="location" class="form-label") Event Location
-      input(type="text" class="form-control border-info" id="location" name="location" required)
-      p(id="eventLocationValidation" class="text-danger")
+    .field
+      label(for="location" class="input-label-name") Event Location
+      input(type="text" class="input-style" id="location" name="location" required)
+      p(id="eventLocationValidation" class="validaet-imput")
 
-    .mb-4
-      label(for="description" class="form-label") Event Description
-      input(type="text" class="form-control border-info" id="description" name="description" required)
-      p(id="eventDescriptionValidation" class="text-danger")
+    .field
+      label(for="description" class="input-label-name") Event Description
+      input(type="text" class="input-style" id="description" name="description" required)
+      p(id="eventDescriptionValidation" class="validaet-imput")
+    
 
-    button(type="submit" class="btn-outline-success btn" onclick="submittingForm()") #{mode === 'Update' ? 'Update' : 'Add'}
+    button(type="submit" class="btn-add" onclick="submittingForm()") #{mode === 'Update' ? 'Update' : 'Add'}
     span &nbsp;
-    button(type="submit" class="btn-outline-primary btn" onclick="window.location.href='/'") Cancel
+    button(type="submit" class="btn-edit" onclick="window.location.href='/'") Cancel
 
   script.
-    const format = 'DD/MM/YYYY HH:mm'
-    const dateTime = new tempusDominus.TempusDominus(document.querySelector('#datetime'),{
-        localization: {
-            'locale': 'fr'
-        }
-    })
-    dateTime.dates.formatInput = function(date) {
-        return moment(date).format(format)
-    }
+    const mode = '#{mode}';
+    const data = !{JSON.stringify(eventData || {})}.event;
+    const dataId= !{JSON.stringify(eventData || {})}.id
+  script(src="/js/addUpdate.js")
+    //- const format = 'DD/MM/YYYY HH:mm'
+    //- const dateTime = new tempusDominus.TempusDominus(document.querySelector('#datetime'),{
+    //-     localization: {
+    //-         'locale': 'fr'
+    //-     }
+    //- })
+    //- dateTime.dates.formatInput = function(date) {
+    //-     return moment(date).format(format)
+    //- }
 
-    if ("#{mode}" === "Update") {
-      const eventData = !{JSON.stringify(eventData || {})}.event;
-      document.querySelector('#eventName').value = eventData.eventName || '';
+    //- if ("#{mode}" === "Update") {
+    //-   const eventData = !{JSON.stringify(eventData || {})}.event;
+    //-   document.querySelector('#eventName').value = eventData.eventName || '';
 
-      dateTime.dates.setValue(
-        new tempusDominus.DateTime(moment(eventData.eventDateTime, format))
-      );
+    //-   dateTime.dates.setValue(
+    //-     new tempusDominus.DateTime(moment(eventData.eventDateTime, format))
+    //-   );
 
-      document.querySelector('#location').value = eventData.location || '';
-      document.querySelector('#description').value = eventData.description || '';
-    }
+    //-   document.querySelector('#location').value = eventData.location || '';
+    //-   document.querySelector('#description').value = eventData.description || '';
+    //- }
 
-    function submittingForm() {
-      const eventData = {
-        eventName: document.querySelector('#eventName').value,
-        eventDateTime: document.querySelector('#eventDateTime').value,
-        location: document.querySelector('#location').value,
-        description: document.querySelector('#description').value,
-      };
-       document.getElementById(`eventDescriptionValidation`).textContent = "";
-        document.getElementById(`eventLocationValidation`).textContent = "";
-        document.getElementById(`eventDateTimeValidation`).textContent = "";
-        document.getElementById(`eventNameValidation`).textContent = "";
+    //- function submittingForm() {
+    //-   const eventData = {
+    //-     eventName: document.querySelector('#eventName').value,
+    //-     eventDateTime: document.querySelector('#eventDateTime').value,
+    //-     location: document.querySelector('#location').value,
+    //-     description: document.querySelector('#description').value,
+    //-   };
+    //-    document.getElementById(`eventDescriptionValidation`).textContent = "";
+    //-     document.getElementById(`eventLocationValidation`).textContent = "";
+    //-     document.getElementById(`eventDateTimeValidation`).textContent = "";
+    //-     document.getElementById(`eventNameValidation`).textContent = "";
 
-      const url = "#{mode}" === "Update" ? `/api/events/${!{JSON.stringify(eventData || {})}.id}` : '/api/events';
-      const mode = "#{mode}" === "Update" ? 'put' : 'post';
+    //-   const url = "#{mode}" === "Update" ? `/api/events/${!{JSON.stringify(eventData || {})}.id}` : '/api/events';
+    //-   const mode = "#{mode}" === "Update" ? 'put' : 'post';
 
-      axios[mode](url, eventData).then(response => {
-        alert('Success!');
-        location.href = '/'
-      })
-      .catch(error => {
-        if(error.response){
-          const errors = error.response.data.errors;
-            Object.keys(errors).forEach(field => {
-              const errorMessage = errors[field];
+    //-   axios[mode](url, eventData).then(response => {
+    //-     alert('Success!');
+    //-     location.href = '/'
+    //-   })
+    //-   .catch(error => {
+    //-     if(error.response){
+    //-       const errors = error.response.data.errors;
+    //-         Object.keys(errors).forEach(field => {
+    //-           const errorMessage = errors[field];
               
-              if (errorMessage.path == "eventName") {
-                if (errorMessage.msg != "") {
-                  document.getElementById(`eventNameValidation`).textContent = errorMessage.msg;
+    //-           if (errorMessage.path == "eventName") {
+    //-             if (errorMessage.msg != "") {
+    //-               document.getElementById(`eventNameValidation`).textContent = errorMessage.msg;
+    //-               console.log(document.querySelector('#dateEvent').value)
+    //-             } else {
+    //-               document.getElementById(`eventNameValidation`).textContent = "";
+    //-             }
+    //-           } else if(errorMessage.path == "eventDateTime") {
+    //-             if (errorMessage.msg != "") {
+    //-               document.getElementById(`eventDateTimeValidation`).textContent = errorMessage.msg;
+    //-             } else {
+    //-               document.getElementById(`eventDateTimeValidation`).textContent = "";
+    //-             }
                 
-                } else {
-                  document.getElementById(`eventNameValidation`).textContent = "";
-                }
-              } else if(errorMessage.path == "eventDateTime") {
-                if (errorMessage.msg != "") {
-                  document.getElementById(`eventDateTimeValidation`).textContent = errorMessage.msg;
-                } else {
-                  document.getElementById(`eventDateTimeValidation`).textContent = "";
-                }
-                
-              } else if (errorMessage.path == "location"){
-                if (errorMessage.msg != "") {
-                  document.getElementById(`eventLocationValidation`).textContent = errorMessage.msg;
-                } else {
-                  document.getElementById(`eventLocationValidation`).textContent = "";
-                }
+    //-           } else if (errorMessage.path == "location"){
+    //-             if (errorMessage.msg != "") {
+    //-               document.getElementById(`eventLocationValidation`).textContent = errorMessage.msg;
+    //-             } else {
+    //-               document.getElementById(`eventLocationValidation`).textContent = "";
+    //-             }
                  
-              } else if (errorMessage.path == "description") {
-                if (errorMessage.msg == "") {
-                  console.log("sfv")
-                  document.getElementById(`eventDescriptionValidation`).textContent = "";
-                } else {
-                  document.getElementById(`eventDescriptionValidation`).textContent = errorMessage.msg;
-                }
-              }         
-            }); 
-        }
-        else
-          alert(error)
-      });
-    }
+    //-           } else if (errorMessage.path == "description") {
+    //-             if (errorMessage.msg == "") {
+    //-               document.getElementById(`eventDescriptionValidation`).textContent = "";
+    //-             } else {
+    //-               document.getElementById(`eventDescriptionValidation`).textContent = errorMessage.msg;
+    //-             }
+    //-           }         
+    //-         }); 
+    //-     }
+    //-     else
+    //-       alert(error)
+    //-   });
+    //- }

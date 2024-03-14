@@ -1,12 +1,10 @@
 include ../head.pug
 body
-   .container.mt-5
-      .row.d-flex.align-items-center
-        .col-md-6
+   .container
+      div.event-title-content
           h1 Event List
-        .col-md-6.text-end
-          a.btn.btn-outline-success(href='/add', role='button') Add      
-      table.table.table-responsive.table-hover.table-bordered.table-bordered-info
+          a.btn-add(href='/add', role='button') Add      
+      table.event-table
         thead
           tr
             th(scope="col") ID
@@ -16,55 +14,5 @@ body
             th(scope="col") Event Description
             th(scope="col") Actions
         tbody
-script.
-      document.addEventListener('DOMContentLoaded', function() {
-          fetchingEvents()      
-      });
-
-        function fetchingEvents() {
-          axios.get('/api/events')
-          .then(function(response) {
-          const events = response.data;
-          renderingEvents(events);
-        })
-       .catch(function(error) {
-         console.error('Error fetching events', error);
-        });
-        }
-
-          function renderingEvents(events) {
-          const tableBody = document.querySelector('table tbody');
-          tableBody.innerHTML = ''; // Clear existing rows
-          events.forEach(e => {
-            const row = document.createElement('tr');
-            const event = e.event
-            row.innerHTML = `
-              <td>${e.id}</td>
-              <td>${event.eventName}</td>
-              <td>${event.eventDateTime}</td>
-              <td>${event.location}</td>
-              <td>${event.description}</td>
-              <td>
-                <button class="btn btn-outline-primary btn-sm" data-id="${e.id}"
-                 onclick="updatingEvent('${e.id}')">Edit</button>
-                <button class="btn btn-outline-danger btn-sm" data-id="${e.id}" onclick="deletingEvent('${e.id}')" >Delete</button>
-              </td>
-            `;
-            tableBody.appendChild(row);
-          });
-        }
-          function updatingEvent(id) {
-            window.location.href = `/update/${id}`;
-          }
-          function deletingEvent(id) {
-            if (confirm('Are you sure you want to delete this event?')) {
-              axios.delete(`/api/events/${id}`)
-                .then(function(response) {
-                  console.log('Delete successful', response);
-                  fetchingEvents(); // Refresh event list
-                })
-                .catch(function(error) {
-                  console.error('Error deleting event', error);
-                });
-            }
-          }
+script(src="/js/homePage.js")
+     

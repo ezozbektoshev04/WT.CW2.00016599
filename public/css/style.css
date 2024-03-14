@@ -1,0 +1,122 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.event-title-content {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn-add {
+  display: inline-block;
+  padding: 8px 16px;
+  border: 1px solid #188d0d;
+  border-radius: 4px;
+  background-color: transparent;
+  color: #0b6603;
+  text-decoration: none;
+  transition: 0.4s;
+}
+
+.btn-add:hover {
+  background-color: #0b6603;
+  color: #fff;
+}
+
+.event-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.event-table th,
+.event-table td {
+  border: 1px solid #dee2e6;
+  padding: 8px;
+  text-align: left;
+}
+
+.event-table thead {
+  background-color: #f2f2f2;
+}
+
+.event-table tbody tr:hover {
+  background-color: #f2f2f2;
+}
+.btn-edit {
+  color: #0157b4;
+  background-color: transparent;
+  border: 1px solid #0157b4;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: 0.4s;
+}
+.btn-edit:hover {
+  color: #fff;
+  background-color: #0157b4;
+  border-color: #0157b4;
+}
+.btn-delete {
+  color: #dc3545;
+  background-color: transparent;
+  border: 1px solid #dc3545;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: 0.4s;
+}
+.btn-delete:hover {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+.input-label-name {
+  font-weight: bold;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.input-style {
+  display: block;
+  width: 100%;
+  padding: 6px 12px;
+  font-size: 18px;
+  color: #495057;
+  background-color: #fff;
+  border: 1px solid rgb(23, 162, 184);
+  border-radius: 4px;
+  transition: 0.15s;
+}
+.input-style:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.25);
+}
+.validaet-imput {
+  color: red;
+}
+input[type="datetime-local"] {
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 18px;
+  background-color: #fff;
+  color: #495057;
+  cursor: pointer;
+  transition: 0.15s;
+  border: 1px solid rgb(23, 162, 184);
+}
+input[type="datetime-local"]:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.25);
+}
