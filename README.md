@@ -9,7 +9,7 @@ The event planner application, which is built using Express.Js, Node.JS, and Pug
 1. Open a terminal or command prompt on your computer
 
 2. Write the following command and run it to clone the repository from github
-   git clone [github link](https://github.com/ezozbektoshev04/WT.CW2.00016599) // Repository link
+   git clone https://github.com/ezozbektoshev04/WT.CW2.00016599 // Repository link
 
 3. After clonning, navigate the project directory
    cd WT.CW2.00016599 // write project name after "cd" command
@@ -20,7 +20,7 @@ The event planner application, which is built using Express.Js, Node.JS, and Pug
 5. Write the following command, and run it to start the application
    npm start
 
-6. Open [link](http://localhost:4000/) this link on your web browser to use this application
+6. Open http://localhost:4000/ this link on your web browser to use this application
 
 ## Application Dependencies' List
 
@@ -32,9 +32,9 @@ The event planner application, which is built using Express.Js, Node.JS, and Pug
 
 ## Links
 
-GitHub: [Github link](https://github.com/ezozbektoshev04/WT.CW2.00016599)
-AWS Public IPv4 address: [Hosting Link](http://16.16.110.225:4000/)
-AWS Public IPv4 DNS: [text](http://ec2-16-16-110-225.eu-north-1.compute.amazonaws.com:4000/)
+GitHub: https://github.com/ezozbektoshev04/WT.CW2.00016599
+AWS Public IPv4 address: http://16.16.110.225:4000/
+AWS Public IPv4 DNS: http://ec2-16-16-110-225.eu-north-1.compute.amazonaws.com:4000/
 
 ## Project Structure
 
