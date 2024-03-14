@@ -33,8 +33,8 @@ The event planner application, which is built using Express.Js, Node.JS, and Pug
 ## Links
 
 GitHub: https://github.com/ezozbektoshev04/WT.CW2.00016599
-AWS Public IPv4 address: http://16.16.110.225:4000/
-AWS Public IPv4 DNS: http://ec2-16-16-110-225.eu-north-1.compute.amazonaws.com:4000/
+AWS Public IPv4 address: http://13.51.251.206:4000/
+AWS Public IPv4 DNS: http://ec2-13-51-251-206.eu-north-1.compute.amazonaws.com:4000/
 
 ## Project Structure
 
